@@ -1,0 +1,21 @@
+package app;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class DequeExample {
+
+	public static void main(String[] args) {
+		Deque<String> dequeEx = new ArrayDeque<String>();
+		
+		//add elements with add()
+		dequeEx.add("Luna Classic");
+		dequeEx.add("To the moon");
+		dequeEx.add("2023");
+		
+		System.out.println(dequeEx);
+		
+
+	}
+
+}
