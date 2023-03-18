@@ -1,0 +1,20 @@
+package app;
+
+import java.util.PriorityQueue;
+
+public class PriorityQ {
+
+	public static void main(String[] args) {
+		
+		PriorityQueue<Integer> priQ = new PriorityQueue<Integer>();
+		
+		priQ.add(42);
+		priQ.add(54);
+		priQ.add(25);
+		
+    //print out the peek or head of queue
+		System.out.println(priQ.peek());
+
+	}
+
+}
