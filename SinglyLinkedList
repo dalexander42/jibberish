@@ -1,0 +1,44 @@
+package app;
+
+public class ImplementList 
+{
+	public static void main(String[] args)
+	{
+		//insert list values
+		SinglyLinkedList myList = new SinglyLinkedList();
+		myList.insert(42);
+		myList.insert(54);
+		myList.insert(25);
+		myList.insert(45);
+		myList.insert(22);
+		
+		System.out.print("Reversed List: ");
+		myList.reversedList = myList.head;
+		myList.reverse(myList.reversedList);
+		System.out.println("\nlist size: " + myList.size());
+		System.out.println("front: " + myList.front());
+		System.out.println("back: " + myList.back());
+		
+		System.out.print("after pop_front/pop_back: ");
+		myList.pop_front();
+		myList.pop_back();
+		
+		myList.reversedList = myList.head;
+		myList.reverse(myList.reversedList);
+		System.out.print("\n");
+		
+		//2nd list to merge
+		
+		SinglyLinkedList myList2 = new SinglyLinkedList();
+		myList2.insert(50);
+		myList2.insert(100);
+		myList2.insert(200);
+		
+		System.out.print("merged lists: ");
+		myList2.merge(myList);
+		
+		myList2.reversedList = myList2.head;
+		myList2.reverse(myList2.head);
+		
+	}
+}
