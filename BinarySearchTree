@@ -1,0 +1,160 @@
+//Binary Search Tree
+//A text file with strings to read are recommended to execute this code properly
+
+
+package app;
+
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+
+public class BST {
+
+	private String data;
+	private BST left;
+	private BST right;
+
+	//default
+	public BST() {
+		this.data = null;
+		this.left = null;
+		this.right = null;
+	}
+
+	public BST(String data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
+
+	public void addNode(String data) {
+		//if tree is null place data in root
+		if (this.data == null) { 
+			this.data = data;
+			
+		} else {
+			if (this.data.compareTo(data) == 0) {
+				
+				//If input is duplicate
+				System.out.println("This word already exists");
+			} 
+			else if (this.data.compareTo(data) < 0) { 
+				// If string is smaller then insert left
+				if (this.left != null) {
+					this.left.addNode(data);
+				} else {
+					this.left = new BST(data);
+				}
+
+			} else { 
+				//if string is greater than or equal to root then insert right
+				if (this.right != null) {
+					this.right.addNode(data);
+				} else {
+					this.right = new BST(data);
+				}
+
+			}
+		}
+	}
+	//in order traversal implementation
+	public void inOrder()  { 
+		if (this.left != null) {
+			this.left.inOrder();
+		}
+		System.out.println(this.data);
+		if (this.right != null) {
+			this.right.inOrder();
+		}
+	}
+
+	public static void search(BST root, String str) {
+		//count elements 
+		int count = 0;
+		while (root != null) {
+			count++;
+			if (str.compareTo(root.data) > 0) {
+				root = root.right;
+			} else if (str.compareTo(root.data) < 0) {
+				root = root.left;
+			} else {
+				//statement informing user of searched/inspected elements
+				System.out.println("Number of inspected elements: " + count);
+				System.out.println("Located: " + str);
+				return;
+			}
+		}
+		System.out.println("Number of inspected elements:  " + count);
+		System.out.println(str + " was not found in tree");
+	}
+	
+
+	public static String minValue(BST root) {
+		String minVal = root.data;
+		while (root.left != null) {
+			minVal = root.left.data;
+			root = root.left;
+		}
+		return minVal;
+	}
+
+	public static BST remove(BST root, String str) {
+		if (root == null)
+			return null;
+		if (str.compareTo(root.data) < 0) { 
+			//if string is smaller than root then move left
+			root.left = remove(root.left, str);
+		} else if (str.compareTo(root.data) > 0) 
+			//if string is greater than root then move right 
+			root.right = remove(root.right, str);
+		else {
+			if (root.left == null)
+				return root.right;
+			else if (root.right == null)
+				return root.left;
+			
+			//find the smallest inorder
+			root.data = minValue(root.right);
+			// delete the smallest
+			root.right = remove(root.right, root.data);
+		}
+		return root;
+	}
+
+	public static void main(String[] args) throws FileNotFoundException {
+		File file = new File("src/strings.txt");
+		Scanner input = new Scanner(file);
+		BST bs = new BST();
+		
+		Scanner sc = new Scanner(System.in);
+
+		while (input.hasNext()) {
+			String word = input.next();
+			bs.addNode(word);
+		}
+		
+		while (true) {
+			System.out.println("Enter a string, enter -1 to quit");
+
+			String str = sc.nextLine();
+			if (str.compareTo("-1") == 0)
+				break;
+
+			search(bs, str);
+
+		}
+
+		while (true) {
+			System.out.println("Enter the string you would like to remove");
+
+			String str = sc.nextLine();
+			if (str.compareTo("-1") == 0)
+				break;
+
+			remove(bs, str);
+			bs.inOrder();
+
+		}
+	}
+}
