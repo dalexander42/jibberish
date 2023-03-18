@@ -1,5 +1,126 @@
 package app;
 
+public class SinglyLinkedList 
+{
+
+class Node
+{
+
+		public int data;
+		public Node next;
+		public Node(int data) 
+		{
+			this.data = data;
+			this.next = null;
+		}	
+	}
+	
+	Node head = null, reversedList = null, tail = null;
+	
+	public void insert(int data)
+	{
+		Node newNode = new Node(data);
+		if(head == null)
+		{
+			this.head = newNode;
+			this.tail = newNode;
+		}
+		
+		else
+		{
+			this.tail.next = newNode;
+			this.tail = newNode;
+		}
+	}
+	
+	public int front()
+	{
+		return this.head.data;
+	}
+	
+	public int back()
+	{
+		return this.tail.data;
+	}
+	
+	boolean isEmpty()
+	{
+		if(head == null)
+			return true;
+		else
+			return false;
+	}
+	
+	public void pop_front()
+	{
+		if(isEmpty())
+		{
+			System.out.println("Empty List");
+		}
+		
+		else
+		{
+			this.head = this.head.next;
+		}
+	}
+	
+	//checks if empty without front or back values, then proceeds to find the remaining values
+	public void pop_back()
+	{
+		if(isEmpty())
+		{
+			System.out.println("Empty List");
+		}
+		else
+		{
+			Node temp = this.head;
+			while(temp.next.next != null)
+			{
+				temp = temp.next;
+			}
+			
+			this.tail = temp;
+			temp.next = null;
+		}
+	}
+	
+	public int size()
+	{
+		int count = 1;
+		Node temp = this.head;
+		while(temp.next != null)
+		{
+			count += 1;
+			temp = temp.next;
+		}
+		return count;
+	}
+	
+	public void reverse(Node temp)
+	{
+		if(temp == null)
+		{
+			return;
+		}
+		
+		reverse(temp.next);
+		System.out.print(" " + temp.data);
+	}
+	
+	public void merge(SinglyLinkedList aList)
+	{
+		this.tail.next = aList.head;
+		this.tail = aList.head;
+	}
+}
+
+
+
+-------------------------------------------------------------------------------------------------
+
+
+package app;
+
 public class ImplementList 
 {
 	public static void main(String[] args)
